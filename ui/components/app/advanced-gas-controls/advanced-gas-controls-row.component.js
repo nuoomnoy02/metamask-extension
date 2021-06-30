@@ -21,6 +21,7 @@ export default function AdvancedGasControlsRow({
   error,
   onChange,
   value,
+  detailText,
 }) {
   return (
     <div
@@ -53,7 +54,12 @@ export default function AdvancedGasControlsRow({
             </Typography>
           )}
         </div>
-        <NumericInput error={error} onChange={onChange} value={value} />
+        <NumericInput
+          error={error}
+          onChange={onChange}
+          value={value}
+          detailText={detailText}
+        />
         {error && (
           <Typography
             color={COLORS.ERROR1}
@@ -75,6 +81,7 @@ AdvancedGasControlsRow.propTypes = {
   error: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.number,
+  detailText: PropTypes.string,
 };
 
 AdvancedGasControlsRow.defaultProps = {
@@ -84,4 +91,5 @@ AdvancedGasControlsRow.defaultProps = {
   error: '',
   onChange: undefined,
   value: 0,
+  detailText: '',
 };
