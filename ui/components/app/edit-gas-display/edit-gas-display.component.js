@@ -35,6 +35,7 @@ export default function EditGasDisplay({
 
   const [warning] = useState(null);
   const [showAdvancedForm, setShowAdvancedForm] = useState(false);
+  const [estimateToUse, setEstimateToUse] = useState('high');
 
   return (
     <div className="edit-gas-display">
@@ -68,9 +69,10 @@ export default function EditGasDisplay({
           options={[
             { value: 'low', label: t('editGasLow'), recommended: false },
             { value: 'medium', label: t('editGasMedium'), recommended: false },
-            { value: 'high', label: t('editGasHigh'), recommended: true },
+            { value: 'high', label: t('editGasHigh'), recommended: false },
           ]}
-          selectedValue="high"
+          selectedValue={estimateToUse}
+          onChange={(value) => setEstimateToUse(value)}
         />
         {!alwaysShowForm && (
           <button
@@ -88,6 +90,7 @@ export default function EditGasDisplay({
         {(alwaysShowForm || showAdvancedForm) && (
           <AdvancedGasControls
             gasFeeEstimates={gasFeeEstimates}
+            estimateToUse={estimateToUse}
             isGasEstimatesLoading={isGasEstimatesLoading}
           />
         )}
