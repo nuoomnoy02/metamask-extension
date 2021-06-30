@@ -15,6 +15,7 @@ import AdvancedGasControls from '../advanced-gas-controls/advanced-gas-controls.
 
 import { I18nContext } from '../../../contexts/i18n';
 import ActionableMessage from '../../../pages/swaps/actionable-message';
+import { useGasFeeEstimates } from '../../../hooks/useGasFeeEstimates';
 
 export default function EditGasDisplay({
   alwaysShowForm,
@@ -23,6 +24,14 @@ export default function EditGasDisplay({
   onEducationClick,
 }) {
   const t = useContext(I18nContext);
+
+  const {
+    isGasEstimatesLoading,
+    gasFeeEstimates,
+    estimatedGasFeeTimeBounds,
+  } = useGasFeeEstimates();
+
+  console.log('gasFeeEstimates', gasFeeEstimates);
 
   const [warning] = useState(null);
   const [showAdvancedForm, setShowAdvancedForm] = useState(false);
@@ -76,7 +85,12 @@ export default function EditGasDisplay({
             )}
           </button>
         )}
-        {(alwaysShowForm || showAdvancedForm) && <AdvancedGasControls />}
+        {(alwaysShowForm || showAdvancedForm) && (
+          <AdvancedGasControls
+            gasFeeEstimates={gasFeeEstimates}
+            isGasEstimatesLoading={isGasEstimatesLoading}
+          />
+        )}
       </div>
       {showEducationButton && (
         <div className="edit-gas-display__education">
