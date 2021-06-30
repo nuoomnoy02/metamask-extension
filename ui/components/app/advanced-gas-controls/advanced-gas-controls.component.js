@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { I18nContext } from '../../../contexts/i18n';
@@ -11,43 +11,16 @@ import {
 import AdvancedGasControlsRow from './advanced-gas-controls-row.component';
 
 export default function AdvancedGasControls({
-  isGasEstimatesLoading,
   estimateToUse,
   gasFeeEstimates,
+  maxPriorityFee,
+  maxFee,
+  setMaxPriorityFee,
+  setMaxFee,
 }) {
   const t = useContext(I18nContext);
 
   const [gasLimit, setGasLimit] = useState(undefined);
-  const [maxPriorityFee, setMaxPriorityFee] = useState(undefined);
-  const [maxFee, setMaxFee] = useState(undefined);
-  const prevIsGasEstimatesLoading = useRef(true);
-  const prevEstimateToUse = useRef(estimateToUse);
-
-  const { suggestedMaxFeePerGas, suggestedMaxPriorityFeePerGas } =
-    gasFeeEstimates?.[estimateToUse] ?? {};
-
-  // useEffect(() => {
-  //   if (
-  //     prevIsGasEstimatesLoading.current === true &&
-  //     isGasEstimatesLoading === false
-  //   ) {
-  //     setMaxPriorityFee(suggestedMaxPriorityFeePerGas);
-  //     setMaxFee(suggestedMaxFeePerGas);
-  //   }
-  //   prevIsGasEstimatesLoading.current = isGasEstimatesLoading;
-  // }, [
-  //   isGasEstimatesLoading,
-  //   estimateToUse,
-  //   suggestedMaxPriorityFeePerGas,
-  //   suggestedMaxFeePerGas,
-  // ]);
-
-  // useEffect(() => {
-  //   if (prevEstimateToUse.current !== estimateToUse) {
-  //     setMaxFee(gasFeeEstimates?.[estimateToUse]?.suggestedMaxFeePerGas);
-  //     setMaxFee(gasFeeEstimates?.[estimateToUse]?.suggestedMaxFeePerGas);
-  //   }
-  // }, [estimateToUse, gasFeeEstimates]);
 
   // Used in legacy version
   const [gasPrice, setGasPrice] = useState(0);
@@ -66,8 +39,10 @@ export default function AdvancedGasControls({
           <AdvancedGasControlsRow
             titleText={t('maxPriorityFee')}
             tooltipText=""
-            onChange={setMaxPriorityFee}
-            value={maxPriorityFee ?? suggestedMaxPriorityFeePerGas}
+            onChange={(value) => {
+              setMaxPriorityFee(value);
+            }}
+            value={maxPriorityFee}
             titleDetailText={
               <>
                 <Typography
@@ -94,8 +69,10 @@ export default function AdvancedGasControls({
           <AdvancedGasControlsRow
             titleText={t('maxFee')}
             tooltipText=""
-            onChange={setMaxFee}
-            value={maxFee ?? suggestedMaxFeePerGas}
+            onChange={(value) => {
+              setMaxFee(value);
+            }}
+            value={maxFee}
             titleDetailText={
               <>
                 <Typography
@@ -134,7 +111,6 @@ export default function AdvancedGasControls({
 
 AdvancedGasControls.propTypes = {
   estimateToUse: PropTypes.oneOf(['high', 'medium', 'low']),
-  isGasEstimatesLoading: PropTypes.boolean,
   gasFeeEstimates: PropTypes.oneOf([
     PropTypes.shape({
       gasPrice: PropTypes.string,
@@ -146,4 +122,8 @@ AdvancedGasControls.propTypes = {
       estimatedBaseFee: PropTypes.string,
     }),
   ]),
+  setMaxPriorityFee: PropTypes.func,
+  setMaxFee: PropTypes.func,
+  maxPriorityFee: PropTypes.number,
+  maxFee: PropTypes.number,
 };
