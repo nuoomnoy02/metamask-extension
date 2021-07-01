@@ -6,6 +6,7 @@ import {
   ETH_GAS_PRICE_FETCH_WARNING_KEY,
   GAS_PRICE_FETCH_FAILURE_ERROR_KEY,
   GAS_PRICE_EXCESSIVE_ERROR_KEY,
+  UNSENDABLE_ASSET_ERROR_KEY,
 } from '../../../helpers/constants/error-keys';
 import SendAmountRow from './send-amount-row';
 import SendGasRow from './send-gas-row';
