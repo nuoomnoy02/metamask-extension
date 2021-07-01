@@ -24,6 +24,8 @@ export default function AdvancedGasControls({
   setGasPrice,
   maxPriorityFeeFiat,
   maxFeeFiat,
+  maxPriorityFeeError,
+  maxFeeError,
 }) {
   const t = useContext(I18nContext);
 
@@ -77,6 +79,7 @@ export default function AdvancedGasControls({
                 </>
               )
             }
+            error={maxPriorityFeeError}
           />
           <AdvancedGasControlsRow
             titleText={t('maxFee')}
@@ -108,6 +111,7 @@ export default function AdvancedGasControls({
                 </>
               )
             }
+            error={maxFeeError}
           />
         </>
       ) : (
@@ -149,4 +153,6 @@ AdvancedGasControls.propTypes = {
   setGasPrice: PropTypes.func,
   maxPriorityFeeFiat: PropTypes.string,
   maxFeeFiat: PropTypes.string,
+  maxPriorityFeeError: PropTypes.string,
+  maxFeeError: PropTypes.string,
 };

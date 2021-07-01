@@ -644,11 +644,20 @@
   "editGasLow": {
     "message": "Low"
   },
+  "editGasMaxFeeLow": {
+    "message": "Max fee too low for network conditions"
+  },
+  "editGasMaxPriorityFeeLow": {
+    "message": "Max priority fee too low for network conditions"
+  },
   "editGasMedium": {
     "message": "Medium"
   },
   "editGasTitle": {
     "message": "Edit gas fee"
+  },
+  "editGasTooLow": {
+    "message": "Unknown processing time"
   },
   "editNonceField": {
     "message": "Edit Nonce"

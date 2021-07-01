@@ -7,6 +7,7 @@ import {
   COLORS,
   TYPOGRAPHY,
   FONT_WEIGHT,
+  TEXT_ALIGN,
 } from '../../../helpers/constants/design-system';
 
 import InfoTooltip from '../../ui/info-tooltip';
@@ -35,6 +36,8 @@ export default function EditGasDisplay({
   const { isGasEstimatesLoading, gasFeeEstimates } = useGasFeeEstimates();
 
   const [warning] = useState(null);
+  const [error, setError] = useState(null);
+
   const [showAdvancedForm, setShowAdvancedForm] = useState(false);
   const [estimateToUse, setEstimateToUse] = useState('high');
 
@@ -44,6 +47,9 @@ export default function EditGasDisplay({
   const [maxFee, setMaxFee] = useState(
     gasFeeEstimates?.[estimateToUse]?.suggestedMaxFeePerGas,
   );
+  const [maxPriorityFeeError, setMaxPriorityFeeError] = useState(null);
+  const [maxFeeError, setMaxFeeError] = useState(null);
+
   const [gasLimit, setGasLimit] = useState(21000);
   const [gasPrice, setGasPrice] = useState(0);
 
@@ -60,6 +66,24 @@ export default function EditGasDisplay({
       setMaxFee(gasFeeEstimates?.[estimateToUse]?.suggestedMaxFeePerGas);
     }
   }, [isGasEstimatesLoading, estimateToUse, gasFeeEstimates]);
+
+  // Validation for the maxPriorityFee and maxFee fields
+  useEffect(() => {
+    const isMaxPriorityFeeError =
+      !isGasEstimatesLoading &&
+      maxPriorityFee < gasFeeEstimates?.low?.suggestedMaxPriorityFeePerGas;
+    const isMaxFeeError =
+      !isGasEstimatesLoading &&
+      maxFee < gasFeeEstimates?.low?.suggestedMaxFeePerGas;
+
+    setMaxPriorityFeeError(
+      isMaxPriorityFeeError ? t('editGasMaxPriorityFeeLow') : null,
+    );
+    setMaxFeeError(isMaxFeeError ? t('editGasMaxFeeLow') : null);
+    setError(
+      isMaxPriorityFeeError || isMaxFeeError ? t('editGasTooLow') : null,
+    );
+  }, [maxPriorityFee, gasFeeEstimates, maxFee, isGasEstimatesLoading, t]);
 
   const { currency, numberOfDecimals } = useUserPreferencedCurrency(SECONDARY);
   const showFiat = useSelector(getShouldShowFiat);
@@ -109,6 +133,17 @@ export default function EditGasDisplay({
           </div>
         )}
         <TransactionTotalBanner total={maxFeeFiat} detail="" timing="" />
+        {error && (
+          <div className="edit-gas-display__error">
+            <Typography
+              color={COLORS.ERROR1}
+              variant={TYPOGRAPHY.H7}
+              align={TEXT_ALIGN.CENTER}
+            >
+              {t('editGasTooLow')}
+            </Typography>
+          </div>
+        )}
         <RadioGroup
           name="gas-recommendation"
           options={[
@@ -156,6 +191,8 @@ export default function EditGasDisplay({
             setGasPrice={setGasPrice}
             maxPriorityFeeFiat={maxPriorityFeeFiat}
             maxFeeFiat={maxFeeFiat}
+            maxPriorityFeeError={maxPriorityFeeError}
+            maxFeeError={maxFeeError}
           />
         )}
       </div>
