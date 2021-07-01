@@ -22,6 +22,7 @@ export default function AdvancedGasControlsRow({
   onChange,
   value,
   detailText,
+  autoFocus,
 }) {
   return (
     <div
@@ -59,6 +60,7 @@ export default function AdvancedGasControlsRow({
           onChange={onChange}
           value={value}
           detailText={detailText}
+          autoFocus={autoFocus}
         />
         {error && (
           <Typography
@@ -82,6 +84,7 @@ AdvancedGasControlsRow.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.number,
   detailText: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 
 AdvancedGasControlsRow.defaultProps = {
@@ -92,4 +95,5 @@ AdvancedGasControlsRow.defaultProps = {
   onChange: undefined,
   value: 0,
   detailText: '',
+  autoFocus: false,
 };
