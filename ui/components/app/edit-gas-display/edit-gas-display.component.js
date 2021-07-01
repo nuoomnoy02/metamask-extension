@@ -39,7 +39,7 @@ export default function EditGasDisplay({
   const [error, setError] = useState(null);
 
   const [showAdvancedForm, setShowAdvancedForm] = useState(false);
-  const [estimateToUse, setEstimateToUse] = useState('high');
+  const [estimateToUse, setEstimateToUse] = useState('medium');
 
   const [maxPriorityFee, setMaxPriorityFee] = useState(
     gasFeeEstimates?.[estimateToUse]?.suggestedMaxPriorityFeePerGas,
