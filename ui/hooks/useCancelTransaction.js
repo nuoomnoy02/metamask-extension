@@ -78,8 +78,10 @@ export function useCancelTransaction(transactionGroup) {
                   name: 'CANCEL_TRANSACTION',
                   newGasFee: userCustomizedGasTotal,
                   transactionId: transaction.id,
-                  defaultNewGasPrice: newGasPrice,
-                  gasLimit: newGasLimit,
+                  customGasSettings: {
+                    gasPrice: newGasPrice,
+                    gasLimit: newGasLimit,
+                  },
                 }),
               );
             },
