@@ -106,6 +106,21 @@ export default function EditGasDisplay({
   );
   const maxFeeFiat = showFiat ? maxFeeParts.value : '';
 
+  // The big number should be `(estimatedBaseFee + (customMaxPriorityFeePerGas || selectedFeeEstimate.suggestedMaxPriorityFeePerGas)) * gasLimit` and then converted to fiat
+  const [, bannerTotalParts] = useCurrencyDisplay(
+    decGWEIToHexWEI(
+      Number(gasFeeEstimates.estimatedBaseFee) +
+        (Number(maxPriorityFee) ||
+          Number(gasFeeEstimates?.[estimateToUse]?.suggestedMaxFeePerGas)) *
+          gasLimit,
+    ),
+    {
+      numberOfDecimals,
+      currency,
+    },
+  );
+  const bannerTotal = showFiat ? bannerTotalParts.value : '';
+
   return (
     <div className="edit-gas-display">
       <div className="edit-gas-display__content">
@@ -132,7 +147,11 @@ export default function EditGasDisplay({
             </Typography>
           </div>
         )}
-        <TransactionTotalBanner total={maxFeeFiat} detail="" timing="" />
+        <TransactionTotalBanner
+          total={bannerTotal}
+          detail={t('editGasTotalBannerSubtitle', [maxFeeFiat])}
+          timing=""
+        />
         {error && (
           <div className="edit-gas-display__error">
             <Typography
