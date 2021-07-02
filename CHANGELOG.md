@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [9.8.0]
+### Uncategorized
+- Add list of custom networks with special gas limit buffers ([#11435](https://github.com/MetaMask/metamask-extension/pull/11435))
+- Ensure that eth_estimateGas is called to estimate gas limit for simple sends on custom networks ([#11418](https://github.com/MetaMask/metamask-extension/pull/11418))
+- Refactor send page state management ([#10965](https://github.com/MetaMask/metamask-extension/pull/10965))
+
 ## [9.7.1]
 ### Fixed
 - [#11426](https://github.com/MetaMask/metamask-extension/pull/11426): Fixed bug that broke transaction speed up and cancel, when attempting those actions immediately after opening MetaMask
@@ -2321,7 +2327,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Uncategorized
 - Added the ability to restore accounts from seed words.
 
-[Unreleased]: https://github.com/MetaMask/metamask-extension/compare/v9.7.1...HEAD
+[Unreleased]: https://github.com/MetaMask/metamask-extension/compare/v9.8.0...HEAD
+[9.8.0]: https://github.com/MetaMask/metamask-extension/compare/v9.7.1...v9.8.0
 [9.7.1]: https://github.com/MetaMask/metamask-extension/compare/v9.7.0...v9.7.1
 [9.7.0]: https://github.com/MetaMask/metamask-extension/compare/v9.6.1...v9.7.0
 [9.6.1]: https://github.com/MetaMask/metamask-extension/compare/v9.6.0...v9.6.1
